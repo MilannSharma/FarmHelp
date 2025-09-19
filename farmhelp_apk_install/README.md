@@ -15,11 +15,11 @@ This folder contains the signed release APK for the farmHelp Android app.
 4. Once installed, open the farmHelp app.
 
 5. Ensure your device has internet connectivity to access the backend at:
-   https://farmhelp-icb8g9xk8-milannsharmas-projects.vercel.app/
+   https://farmhelpapk.netlify.app/
 
 ## Notes
 
-- The app loads the backend from the above URL. Make sure the backend is accessible.
+- The app loads the frontend from the above URL. Make sure the frontend is accessible.
 
 - If you encounter any issues, please verify network connectivity and permissions.
 
