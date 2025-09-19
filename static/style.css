@@ -1,0 +1,11 @@
+body {
+    background-image: url('https://images.unsplash.com/photo-1528825871115-3581a5387919');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+}

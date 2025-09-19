@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Crop Prediction - Farmer Guider AI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0f0f1e;
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .prediction-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .prediction-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .prediction-header h1 {
+            font-weight: 700;
+            color: #7f5af0;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(127, 90, 240, 0.3);
+            background: #12122b;
+        }
+        .card-header {
+            background: linear-gradient(135deg, #7f5af0, #f0a500);
+            color: white;
+            font-weight: 600;
+            font-size: 1.25rem;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+        .card-body {
+            padding: 2rem;
+        }
+        .form-label {
+            color: #e0e0e0;
+            font-weight: 500;
+        }
+        .form-control {
+            background: #1a1a2e;
+            border: 1px solid #7f5af0;
+            color: #e0e0e0;
+            border-radius: 10px;
+            padding: 0.75rem;
+        }
+        .form-control:focus {
+            border-color: #f0a500;
+            box-shadow: 0 0 0 0.2rem rgba(127, 90, 240, 0.25);
+        }
+        .btn-predict {
+            background: #7f5af0;
+            border: none;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+            width: 100%;
+        }
+        .btn-predict:hover {
+            background: #f0a500;
+            transform: scale(1.05);
+        }
+        .navbar {
+            background: rgba(15, 15, 30, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(127, 90, 240, 0.2);
+        }
+        .navbar-brand {
+            font-weight: 700;
+            color: #7f5af0 !important;
+            letter-spacing: 2px;
+        }
+        .nav-link {
+            color: #a0a0b8 !important;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #f0a500 !important;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-seedling me-2"></i>
+                Farmer Guider AI
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/predict">Crop Prediction</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/chat">Chat with Nax AI</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="prediction-container">
+        <div class="prediction-header">
+            <h1><i class="fas fa-leaf me-2"></i>Crop Prediction</h1>
+            <p>Enter environmental parameters to get crop recommendations</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Environmental Parameters</div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Input Mode</label>
+                    <div class="btn-group w-100" role="group">
+                        <input type="radio" class="btn-check" name="inputMode" id="autoMode" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary" for="autoMode">Automatic Detection</label>
+                        <input type="radio" class="btn-check" name="inputMode" id="manualMode" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="manualMode">Manual Input</label>
+                    </div>
+                </div>
+
+                <form action="/predict" method="POST" id="predictionForm">
+                    <div id="autoFields" class="auto-fields">
+                        <div class="mb-3">
+                            <label for="city" class="form-label">City Name</label>
+                            <input type="text" class="form-control" id="city" name="city" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="season" class="form-label">Season</label>
+                            <input type="text" class="form-control" id="season" name="season" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="temperature" class="form-label">Temperature (°C)</label>
+                            <input type="number" step="0.1" class="form-control" id="temperature" name="temperature" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="humidity" class="form-label">Humidity (%)</label>
+                            <input type="number" step="0.1" class="form-control" id="humidity" name="humidity" readonly>
+                        </div>
+                    </div>
+
+                    <div id="manualFields" class="manual-fields" style="display: none;">
+                        <div class="mb-3">
+                            <label for="cityManual" class="form-label">City Name</label>
+                            <input type="text" class="form-control" id="cityManual" name="city" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="seasonManual" class="form-label">Season</label>
+                            <select class="form-control" id="seasonManual" name="season" required>
+                                <option value="">Select Season</option>
+                                <option value="spring">Spring</option>
+                                <option value="summer">Summer</option>
+                                <option value="fall">Fall</option>
+                                <option value="winter">Winter</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="temperatureManual" class="form-label">Temperature (°C)</label>
+                            <input type="number" step="0.1" class="form-control" id="temperatureManual" name="temperature" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="humidityManual" class="form-label">Humidity (%)</label>
+                            <input type="number" step="0.1" class="form-control" id="humidityManual" name="humidity" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="soilType" class="form-label">Soil Type</label>
+                        <select class="form-control" id="soilType" name="soilType" required>
+                            <option value="">Select Soil Type</option>
+                            <option value="clay">Clay</option>
+                            <option value="sandy">Sandy</option>
+                            <option value="loamy">Loamy</option>
+                            <option value="silt">Silt</option>
+                            <option value="peat">Peat</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ph" class="form-label">pH Level</label>
+                        <input type="number" step="0.1" class="form-control" id="ph" name="ph" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="rainfall" class="form-label">Rainfall (mm)</label>
+                        <input type="number" step="0.1" class="form-control" id="rainfall" name="rainfall" required>
+                    </div>
+                    <button type="submit" class="btn-predict">Predict Crop</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Mode switching
+        document.getElementById('autoMode').addEventListener('change', function() {
+            if (this.checked) {
+                document.getElementById('autoFields').style.display = 'block';
+                document.getElementById('manualFields').style.display = 'none';
+                // Set required attributes
+                setRequired('autoFields', true);
+                setRequired('manualFields', false);
+                // Auto-detect data
+                autoDetectData();
+            }
+        });
+
+        document.getElementById('manualMode').addEventListener('change', function() {
+            if (this.checked) {
+                document.getElementById('autoFields').style.display = 'none';
+                document.getElementById('manualFields').style.display = 'block';
+                // Set required attributes
+                setRequired('autoFields', false);
+                setRequired('manualFields', true);
+            }
+        });
+
+        function setRequired(containerId, required) {
+            const container = document.getElementById(containerId);
+            const inputs = container.querySelectorAll('input, select');
+            inputs.forEach(input => {
+                if (required) {
+                    input.setAttribute('required', 'required');
+                } else {
+                    input.removeAttribute('required');
+                }
+            });
+        }
+
+        // Auto-detect data
+        function autoDetectData() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+
+                    // Use OpenWeatherMap API for weather and geocoding
+                    const apiKey = 'bd5e378503939ddaee76f12ad7a97608'; // Free OpenWeatherMap API key for demonstration
+
+                    try {
+                        // Get weather data using OpenWeatherMap
+                        const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`);
+                        const weatherData = await weatherResponse.json();
+
+                        document.getElementById('temperature').value = weatherData.main.temp || '';
+                        document.getElementById('humidity').value = weatherData.main.humidity || '';
+                        document.getElementById('city').value = weatherData.name || 'Unknown';
+
+                        // Determine season based on month
+                        const month = new Date().getMonth() + 1;
+                        let season = '';
+                        if (month >= 3 && month <= 5) season = 'spring';
+                        else if (month >= 6 && month <= 8) season = 'summer';
+                        else if (month >= 9 && month <= 11) season = 'fall';
+                        else season = 'winter';
+                        document.getElementById('season').value = season;
+
+                    } catch (error) {
+                        console.error('Weather fetch error:', error);
+                        alert('Unable to fetch weather data. Please switch to manual mode.');
+                    }
+                }, () => {
+                    alert('Geolocation permission denied. Please switch to manual mode.');
+                });
+            } else {
+                alert('Geolocation not supported. Please switch to manual mode.');
+            }
+        }
+
+        // Initialize auto mode
+        if (document.getElementById('autoMode').checked) {
+            autoDetectData();
+        }
+    </script>
+</body>
+</html>
