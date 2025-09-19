@@ -20,14 +20,14 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: ./new_farmhelp_repo/public
+        working-directory: ./public
 
       - name: Build frontend
         run: npm run build
-        working-directory: ./new_farmhelp_repo/public
+        working-directory: ./public
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: \${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./new_farmhelp_repo/public/build
+          publish_dir: ./public/build
