@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Load the hosted frontend URL on Netlify
-        webView.loadUrl("https://farmhelpapk.netlify.app/");
+        // Load the hosted frontend URL on GitHub Pages
+        webView.loadUrl("https://milannsharma.github.io/Farmhelp/");
     }
 
     private boolean checkPermissions() {

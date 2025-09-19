@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.farmhelp.app-mergeDebugResources-26:/values-w320dp-land-v13/values-w320dp-land-v13.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\cc\\.gradle\\caches\\transforms-3\\5d803ab5964032e95ef7ced26ebf6cc1\\transformed\\material-1.9.0\\res\\values-w320dp-land-v13\\values-w320dp-land-v13.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,110",
+                        "endColumns": "54,61",
+                        "endOffsets": "105,167"
+                    }
+                }
+            ]
+        }
+    ]
+}

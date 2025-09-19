@@ -1,0 +1,78 @@
+# Project Commands for Farmer Guider AI
+
+## 1. Setup and Installation
+- Create and activate virtual environment (optional but recommended):
+  ```bash
+  python -m venv venv
+  source venv/Scripts/activate  # Windows
+  source venv/bin/activate      # Linux/macOS
+  ```
+- Install dependencies:
+  ```bash
+  pip install -r requirements.txt
+  ```
+
+## 2. Running the Flask Application
+- Start the Flask app (default port 5000):
+  ```bash
+  python app.py
+  ```
+- Access the app in browser at:
+  ```
+  http://localhost:5000/
+  ```
+
+## 3. Training the Crop Prediction Model
+- Run the enhanced training script:
+  ```bash
+  python train_model.py
+  ```
+- This will:
+  - Load existing datasets and generate synthetic data
+  - Train multiple models and select the best one
+  - Save the trained model as `model.pkl`
+  - Save the enhanced dataset as `enhanced_farmer_data.csv`
+
+## 4. Testing the Application
+- Test chatbot integration by navigating to:
+  ```
+  http://localhost:5000/chat
+  ```
+- Test crop prediction form at:
+  ```
+  http://localhost:5000/predict
+  ```
+- Submit inputs manually or use auto-detection mode
+- Verify prediction results and suggested blogs/videos on:
+  ```
+  http://localhost:5000/result
+  ```
+
+## 5. Additional Recommendations
+- Regularly retrain the model with new data:
+  ```bash
+  python train_model.py
+  ```
+- Monitor model performance and update as needed
+- Backup `model.pkl` and datasets regularly
+- Use version control (Git) for source code management
+- Consider deploying the app with a production server (e.g., Gunicorn, Nginx)
+- Secure API keys and sensitive data using environment variables
+
+## 6. Useful Commands
+- Check Python version:
+  ```bash
+  python --version
+  ```
+- List installed packages:
+  ```bash
+  pip list
+  ```
+- Run tests (if any test scripts are added):
+  ```bash
+  pytest
+  ```
+
+---
+
+# End of Project Commands

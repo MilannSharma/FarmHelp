@@ -1,0 +1,5 @@
+temperature,humidity,ph,rainfall,Crop
+22,80,6.5,120,Rice
+28,60,7.0,90,Wheat
+30,70,6.8,100,Maize
+24,75,6.7,110,Sugarcane

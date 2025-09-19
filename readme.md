@@ -1,11 +1,15 @@
 # farmHelp - Smart Farming Assistant
 
+## Download APK
+Download the latest APK directly:  
+[Download farmhelp.apk](https://github.com/MilannSharma/Farmhelp/releases/download/v1.0.0/farmhelp.apk)
+
 ## Overview
-farmHelp is an Android application integrated with a Flask backend that provides agricultural knowledge and assistance to farmers. The app loads a web-based interface hosted on a public backend and offers features such as crop information, weather data, and farming tips.
+farmHelp is an Android application integrated with a Flask backend that provides agricultural knowledge and assistance to farmers. The app loads a web-based interface hosted on GitHub Pages and offers features such as crop information, weather data, and farming tips.
 
 ## Features
 - Android app with embedded WebView for seamless user experience.
-- Frontend hosted on Netlify for public access.
+- Frontend hosted on GitHub Pages for public access.
 - Real-time weather and crop data integration.
 - Location-based services with geolocation permissions.
 - Easy installation via signed APK.
@@ -23,8 +27,8 @@ farmHelp is an Android application integrated with a Flask backend that provides
 
 ### Frontend
 1. The frontend is hosted at:  
-   https://farmhelpapk.netlify.app/  
-2. To run locally, open the frontend files or host on Netlify.
+   https://milannsharma.github.io/Farmhelp/  
+2. To run locally, open the frontend files or host on GitHub Pages.
 
 ### Android App
 1. Install the APK from `farmhelp_apk_install/farmhelp.apk` on your Android device.
@@ -34,7 +38,7 @@ farmHelp is an Android application integrated with a Flask backend that provides
 ## Development
 
 - Android app uses Java and Android SDK.
-- Frontend is static and hosted on Netlify.
+- Frontend is static and hosted on GitHub Pages.
 - Gradle is used for building the Android app.
 - Location permissions are requested for geolocation features.
 
