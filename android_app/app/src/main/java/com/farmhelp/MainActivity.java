@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Load the Flask app URL - change to your hosted URL or local IP
-        webView.loadUrl("https://farmhelp-icb8g9xk8-milannsharmas-projects.vercel.app/");
+        // Load the hosted frontend URL on Netlify
+        webView.loadUrl("https://farmhelpapk.netlify.app/");
     }
 
     private boolean checkPermissions() {

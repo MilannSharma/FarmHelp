@@ -1,28 +1,9 @@
-# ===============================================
-# 🚀 Farmer Guider AI Project
-# 👨‍💻 Author: Milan Sharma
-# 📧 Email: milansharma86983@gmail.com
-# ===============================================
-
 from flask import Flask, render_template, request, jsonify
 import os
-
-app = Flask(__name__)
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-# Add other routes and logic here as needed
-
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
 import joblib
 import numpy as np
 import warnings
 from config import Config
-import os
 from datetime import datetime
 
 warnings.filterwarnings("ignore")
@@ -59,21 +40,17 @@ def dashboard():
 def chat():
     return render_template('chat.html')
 
-
-
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
     if request.method == 'GET':
         return render_template('predict.html')
     try:
-        # Use either manual or auto input fields based on which is filled
         if request.form.get('temperature'):
             temp = float(request.form['temperature'])
             humidity = float(request.form['humidity'])
             ph = float(request.form['ph'])
             rainfall = float(request.form['rainfall'])
         else:
-            # Try manual fields if auto fields are empty
             temp = float(request.form.get('temperatureManual', 0))
             humidity = float(request.form.get('humidityManual', 0))
             ph = float(request.form.get('ph', 0))
@@ -82,7 +59,6 @@ def predict():
         input_data = np.array([[temp, humidity, ph, rainfall]])
         prediction = model.predict(input_data)[0]
 
-        # Prepare blog and video suggestions (static for now, can be dynamic later)
         blog_suggestions = [
             {"title": "Top 10 Tips for Successful Farming", "url": "https://exampleblog.com/farming-tips"},
             {"title": "How to Improve Soil Quality", "url": "https://exampleblog.com/soil-quality"},
@@ -106,6 +82,6 @@ def api_predict():
     return jsonify({"crop": prediction})
 
 if __name__ == '__main__':
-    print("🌐 Starting Farmer Guider AI Flask application...")
-    print("🌐 Access the app at: http://127.0.0.1:5000/")
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    print(f"🌐 Starting Farmer Guider AI Flask application on port {port}...")
+    app.run(host='0.0.0.0', port=port)
