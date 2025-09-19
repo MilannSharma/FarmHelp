@@ -2,7 +2,7 @@
 
 ## Download APK
 Download the latest APK directly:  
-[Download farmhelp.apk](https://github.com/MilannSharma/Farmhelp/releases/download/v1.0.0/farmhelp.apk)
+[Download farmhelp.apk](https://github.com/MilannSharma/Farmhelp/raw/main/android_app/app/build/outputs/apk/release/app-release.apk)
 
 ## Overview
 farmHelp is an Android application integrated with a Flask backend that provides agricultural knowledge and assistance to farmers. The app loads a web-based interface hosted on GitHub Pages and offers features such as crop information, weather data, and farming tips.
