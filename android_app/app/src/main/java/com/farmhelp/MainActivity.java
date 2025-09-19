@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Load the hosted frontend URL on GitHub Pages
-        webView.loadUrl("https://milannsharma.github.io/Farmhelp/");
+        webView.loadUrl("https://milannsharma.github.io/FarmHelp/");
     }
 
     private boolean checkPermissions() {
