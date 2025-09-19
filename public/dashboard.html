@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard - Farmer Guider AI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0f0f1e;
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .dashboard-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .dashboard-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .dashboard-header h1 {
+            font-weight: 700;
+            color: #7f5af0;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(127, 90, 240, 0.3);
+            margin-bottom: 2rem;
+            background: #12122b;
+        }
+        .card-header {
+            background: linear-gradient(135deg, #7f5af0, #f0a500);
+            color: white;
+            font-weight: 600;
+            font-size: 1.25rem;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+        .card-body {
+            padding: 1.5rem;
+            color: #b0b0c8;
+        }
+        .crop-guide {
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            color: #888;
+        }
+        .weather-info {
+            font-size: 1rem;
+            color: #ccc;
+        }
+        .animated-button {
+            background: #7f5af0;
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        .animated-button:hover {
+            background: #f0a500;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1><i class="fas fa-chart-line me-2"></i>Farm Dashboard</h1>
+            <p>Weather updates, crop recommendations, and farming guides</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Current Weather</div>
+            <div class="card-body weather-info" id="weatherInfo">
+                Loading weather data...
+            </div>
+            <div id="weatherError" style="color: red; font-weight: bold; display:none;"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Best Crops for Your Area</div>
+            <div class="card-body" id="cropRecommendations">
+                Loading crop recommendations...
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Farming Guides</div>
+            <div class="card-body" id="farmingGuides">
+                Loading farming guides...
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button class="animated-button" onclick="refreshData()">Refresh Data</button>
+        </div>
+    </div>
+
+    <script>
+        async function fetchWeather() {
+            // Use browser geolocation API to get location
+            return new Promise((resolve, reject) => {
+                if (!navigator.geolocation) {
+                    resolve({
+                        location: "Unknown",
+                        temperature: "N/A",
+                        condition: "N/A",
+                        humidity: "N/A",
+                        wind: "N/A"
+                    });
+                } else {
+                    navigator.geolocation.getCurrentPosition(async (position) => {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+
+                        // Fetch weather data from OpenWeatherMap API (replace YOUR_API_KEY)
+                        const apiKey = 'YOUR_OPENWEATHERMAP_API_KEY';
+                        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+
+                        try {
+                            const response = await fetch(url);
+                            const data = await response.json();
+                            console.log("Weather data:", data);
+                            resolve({
+                                location: data.name,
+                                temperature: data.main && data.main.temp ? `${data.main.temp}°C` : "N/A",
+                                condition: data.weather && data.weather[0] ? data.weather[0].description : "N/A",
+                                humidity: data.main && data.main.humidity ? `${data.main.humidity}%` : "N/A",
+                                wind: data.wind && data.wind.speed ? `${data.wind.speed} m/s` : "N/A"
+                            });
+                        } catch (error) {
+                            console.error("Weather fetch error:", error);
+                            resolve({
+                                location: "Unknown",
+                                temperature: "N/A",
+                                condition: "N/A",
+                                humidity: "N/A",
+                                wind: "N/A"
+                            });
+                        }
+                    }, () => {
+                        resolve({
+                            location: "Permission Denied",
+                            temperature: "N/A",
+                            condition: "N/A",
+                            humidity: "N/A",
+                            wind: "N/A"
+                        });
+                    });
+                }
+            });
+        }
+
+        async function fetchCropRecommendations() {
+            // Placeholder: Replace with real crop recommendation logic
+            return [
+                { name: "Wheat", description: "Best grown in cool climates with moderate rainfall." },
+                { name: "Corn", description: "Requires warm weather and well-drained soil." },
+                { name: "Rice", description: "Needs abundant water and warm temperatures." }
+            ];
+        }
+
+        async function fetchYouTubeVideos() {
+            // Placeholder: Replace with real YouTube API integration
+            return [
+                { title: "Farming Tips for Beginners", url: "https://www.youtube.com/watch?v=example1" },
+                { title: "How to Grow Wheat Effectively", url: "https://www.youtube.com/watch?v=example2" },
+                { title: "Corn Farming Best Practices", url: "https://www.youtube.com/watch?v=example3" }
+            ];
+        }
+
+        async function fetchFarmingGuides() {
+            // Placeholder: Replace with real farming guides data
+            return [
+                { crop: "Wheat", guide: "Prepare soil, sow seeds in early spring, irrigate regularly." },
+                { crop: "Corn", guide: "Plant in late spring, ensure full sun, fertilize monthly." },
+                { crop: "Rice", guide: "Flood fields, transplant seedlings, manage water levels carefully." }
+            ];
+        }
+
+        async function refreshData() {
+            document.getElementById('weatherInfo').textContent = 'Loading weather data...';
+            document.getElementById('cropRecommendations').textContent = 'Loading crop recommendations...';
+            document.getElementById('farmingGuides').textContent = 'Loading farming guides...';
+
+            const weather = await fetchWeather();
+            const crops = await fetchCropRecommendations();
+            const guides = await fetchFarmingGuides();
+            const videos = await fetchYouTubeVideos();
+
+            document.getElementById('weatherInfo').innerHTML = `
+                <strong>Location:</strong> ${weather.location || "Unknown"}<br/>
+                <strong>Temperature:</strong> ${weather.temperature || "N/A"}<br/>
+                <strong>Condition:</strong> ${weather.condition || "N/A"}<br/>
+                <strong>Humidity:</strong> ${weather.humidity || "N/A"}<br/>
+                <strong>Wind:</strong> ${weather.wind || "N/A"}
+            `;
+
+            document.getElementById('cropRecommendations').innerHTML = crops.map(crop => `
+                <h5>${crop.name}</h5>
+                <p>${crop.description}</p>
+            `).join('');
+
+            document.getElementById('farmingGuides').innerHTML = guides.map(guide => `
+                <h5>${guide.crop}</h5>
+                <p>${guide.guide}</p>
+            `).join('');
+
+            // Add YouTube videos section dynamically
+            const videosSection = document.createElement('div');
+            videosSection.classList.add('card');
+            videosSection.innerHTML = `
+                <div class="card-header">Recommended Farming Videos</div>
+                <div class="card-body">
+                    ${videos.map(video => `
+                        <h5><a href="${video.url}" target="_blank">${video.title}</a></h5>
+                    `).join('')}
+                </div>
+            `;
+            document.querySelector('.dashboard-container').appendChild(videosSection);
+        }
+
+        // Initial load
+        refreshData();
+    </script>
+</body>
+</html>

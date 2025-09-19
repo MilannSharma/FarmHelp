@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Farmer Guider AI - Modern Landing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <style>
+        /* Reset and base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0f0f1e;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            position: fixed;
+            width: 100%;
+            background: rgba(15, 15, 30, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+        nav .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #7f5af0;
+            letter-spacing: 2px;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+        nav ul li a {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #a0a0b8;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #7f5af0;
+        }
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 5rem;
+        }
+        .hero-text {
+            max-width: 600px;
+            animation: fadeInUp 1s ease forwards;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #7f5af0, #f0a500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-text p {
+            font-size: 1.25rem;
+            color: #b0b0c8;
+            margin-bottom: 2rem;
+        }
+        .hero-text .btn-primary {
+            background: #7f5af0;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: white;
+            box-shadow: 0 10px 20px rgba(127, 90, 240, 0.5);
+            transition: background 0.3s ease;
+        }
+        .hero-text .btn-primary:hover {
+            background: #f0a500;
+            box-shadow: 0 10px 30px rgba(240, 165, 0, 0.7);
+        }
+        /* Hero Image */
+        .hero-image {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            animation: fadeIn 1.5s ease forwards;
+            opacity: 0;
+        }
+        .hero-image svg {
+            width: 100%;
+            height: 100%;
+        }
+        /* Features Section */
+        .features {
+            background: #12122b;
+            padding: 4rem 0;
+            display: flex;
+            justify-content: space-around;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .feature-card {
+            background: #1e1e3f;
+            border-radius: 20px;
+            padding: 2rem;
+            flex: 1 1 280px;
+            box-shadow: 0 10px 30px rgba(127, 90, 240, 0.2);
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(240, 165, 0, 0.4);
+        }
+        .feature-icon {
+            font-size: 3rem;
+            color: #7f5af0;
+            margin-bottom: 1rem;
+        }
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        .feature-desc {
+            font-size: 1rem;
+            color: #b0b0c8;
+            line-height: 1.5;
+        }
+        /* Footer */
+        footer {
+            background: #0f0f1e;
+            text-align: center;
+            padding: 2rem 0;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 4rem;
+        }
+        /* Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        /* Scroll Down Arrow */
+        .scroll-down {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            color: #7f5af0;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(-15px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="logo">Farmer Guider AI</div>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/chat">Chat</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="hero">
+        <div class="container hero-text">
+            <h1>Latest <span style="color:#f0a500;">AI</span> Farming Trends 2023</h1>
+            <p>Empowering farmers with smart crop prediction and personalized AI assistance for better yields and sustainable farming.</p>
+            <a href="/chat" class="btn-primary">Chat with Nax AI</a>
+        </div>
+        <div class="hero-image">
+            <!-- Example SVG or image for modern style -->
+            <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="500" height="500" rx="50" fill="#7f5af0" />
+                <circle cx="250" cy="250" r="100" fill="#f0a500" />
+                <circle cx="250" cy="250" r="60" fill="#0f0f1e" />
+                <circle cx="250" cy="250" r="30" fill="#7f5af0" />
+            </svg>
+        </div>
+        <div class="scroll-down">&#x2193;</div>
+    </section>
+    <section class="features container">
+        <a href="/predict" style="color:inherit; text-decoration:none;">
+            <div class="feature-card">
+                <div class="feature-icon">🌱</div>
+                <div class="feature-title">AI-Powered Predictions</div>
+                <div class="feature-desc">Get accurate crop recommendations based on soil, weather, and farming data.</div>
+            </div>
+        </a>
+        <a href="/chat" style="color:inherit; text-decoration:none;">
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <div class="feature-title">Nax AI Assistant</div>
+                <div class="feature-desc">Personalized farming advice and instant answers to your questions.</div>
+            </div>
+        </a>
+        <a href="/dashboard" style="color:inherit; text-decoration:none;">
+            <div class="feature-card">
+                <div class="feature-icon">☀️</div>
+                <div class="feature-title">Real-Time Weather</div>
+                <div class="feature-desc">Integrated weather data for timely and accurate farming decisions.</div>
+            </div>
+        </a>
+    </section>
+    <footer>
+        &copy; 2024 Farmer Guider AI. All rights reserved.
+    </footer>
+    <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2025/09/18/14/20250918144253-UY6POXDL.js" defer></script>
+</body>
+</html>
